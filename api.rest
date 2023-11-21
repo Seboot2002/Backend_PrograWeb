@@ -1,0 +1,17 @@
+GET http://localhost:3001/personas/1
+
+###
+
+POST http://localhost:3080/personas
+Content-Type: application/json
+
+{
+    "idPersona": 1,
+    "nombre": "Liliana",
+    "apellido": "Torres",
+    "tipoDocumento": "DNI",
+    "DNI": "42467913",
+    "idRol": 2,
+    "email": "ltorres@gmail.com",
+    "password": "ltorres"
+}

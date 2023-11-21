@@ -6,10 +6,10 @@ const ruta = express.Router()
 
 ruta.get('/', async(req,res) => {
 
-    let usuario = await db.Usuario.findAll();
+    let reserva = await db.Reserva.findAll();
 
-    if ( usuario ) {
-        res.status(200).json(usuario)
+    if ( reserva ) {
+        res.status(200).json(reserva)
     } else {
         res.status(200).send("error")
     }
@@ -19,10 +19,10 @@ ruta.get('/', async(req,res) => {
 ruta.post('/', async(req,res) => {
 
     let data = req.body
-    const usuario = await db.Usuario.create(data);
+    const reserva = await db.Reserva.create(data);
 
-    if ( usuario ) {
-        res.status(200).json(usuario)
+    if ( reserva ) {
+        res.status(200).json(reserva)
     } else {
         res.status(200).send("error")
     }
@@ -31,23 +31,15 @@ ruta.post('/', async(req,res) => {
 ruta.put('/:id', async(req,res) => {
 
     const id = req.params.id;
-    let { nombre,
-    apellido,
-    tipoDocumento,
-    dni,
-    rol,
-    email,
-    password } = req.body
+    let { fechaInicial,
+        fechaFinal,
+        dias } = req.body
 
-    const usuario = await db.Usuario.update(
+    const reserva = await db.Reserva.update(
         {
-            nombre: nombre,
-            apellido: apellido,
-            tipoDocumento: tipoDocumento,
-            dni: dni,
-            rol: rol,
-            email: email,
-            password: password
+            fechaInicial: fechaInicial,
+            fechaFinal: fechaFinal,
+            dias: dias
         },
         {
             where: {
@@ -61,13 +53,13 @@ ruta.delete('/:id', async(req,res) => {
 
     const id = req.params.id;
 
-    const usuario = await db.Usuario.destroy({
+    const reserva = await db.Reserva.destroy({
         where: {
             id: id
         }
     });
 
-    if ( usuario ) {
+    if ( reserva ) {
         res.status(200).send("Se eliminó el usuario")
     } else {
         res.status(200).send("error")
@@ -78,10 +70,10 @@ ruta.get('/:id', async(req,res) => {
 
     const id = req.params.id;
     
-    const usuario = await db.Usuario.findByPk(id)
+    const reserva = await db.Reserva.findByPk(id)
 
-    if ( usuario ) {
-        res.status(200).json(usuario)
+    if ( reserva ) {
+        res.status(200).json(reserva)
     } else {
         res.status(200).send("error")
     }

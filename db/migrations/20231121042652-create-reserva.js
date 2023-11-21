@@ -9,23 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      titulo: {
+      fechaInicial: {
         type: Sequelize.STRING
       },
-      autor: {
+      fechaFinal: {
         type: Sequelize.STRING
       },
-      editorial: {
-        type: Sequelize.STRING
-      },
-      categoria: {
-        type: Sequelize.STRING
-      },
-      anio: {
+      dias: {
         type: Sequelize.INTEGER
-      },
-      idioma: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

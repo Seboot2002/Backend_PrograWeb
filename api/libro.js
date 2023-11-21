@@ -6,10 +6,10 @@ const ruta = express.Router()
 
 ruta.get('/', async(req,res) => {
 
-    let usuario = await db.Usuario.findAll();
+    let libro = await db.Libro.findAll();
 
-    if ( usuario ) {
-        res.status(200).json(usuario)
+    if ( libro ) {
+        res.status(200).json(libro)
     } else {
         res.status(200).send("error")
     }
@@ -19,10 +19,10 @@ ruta.get('/', async(req,res) => {
 ruta.post('/', async(req,res) => {
 
     let data = req.body
-    const usuario = await db.Usuario.create(data);
+    const libro = await db.Libro.create(data);
 
-    if ( usuario ) {
-        res.status(200).json(usuario)
+    if ( libro ) {
+        res.status(200).json(libro)
     } else {
         res.status(200).send("error")
     }
@@ -31,23 +31,21 @@ ruta.post('/', async(req,res) => {
 ruta.put('/:id', async(req,res) => {
 
     const id = req.params.id;
-    let { nombre,
-    apellido,
-    tipoDocumento,
-    dni,
-    rol,
-    email,
-    password } = req.body
+    let { titulo,
+    autor,
+    editorial,
+    categoria,
+    anio,
+    idioma } = req.body
 
-    const usuario = await db.Usuario.update(
+    const libro = await db.Libro.update(
         {
-            nombre: nombre,
-            apellido: apellido,
-            tipoDocumento: tipoDocumento,
-            dni: dni,
-            rol: rol,
-            email: email,
-            password: password
+            titulo: titulo,
+            autor: autor,
+            editorial: editorial,
+            categoria: categoria,
+            anio: anio,
+            idioma: idioma
         },
         {
             where: {
@@ -61,13 +59,13 @@ ruta.delete('/:id', async(req,res) => {
 
     const id = req.params.id;
 
-    const usuario = await db.Usuario.destroy({
+    const libro = await db.Libro.destroy({
         where: {
             id: id
         }
     });
 
-    if ( usuario ) {
+    if ( libro ) {
         res.status(200).send("Se eliminó el usuario")
     } else {
         res.status(200).send("error")
@@ -78,10 +76,10 @@ ruta.get('/:id', async(req,res) => {
 
     const id = req.params.id;
     
-    const usuario = await db.Usuario.findByPk(id)
+    const libro = await db.Libro.findByPk(id)
 
-    if ( usuario ) {
-        res.status(200).json(usuario)
+    if ( libro ) {
+        res.status(200).json(libro)
     } else {
         res.status(200).send("error")
     }

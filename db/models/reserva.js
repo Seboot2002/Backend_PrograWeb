@@ -4,21 +4,22 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Reserva extends Model {
-
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
     static associate(models) {
       
-      this.belongsTo(models.Usuario, {as:'usuario', foreignKey:'usuarioId'})
-      this.belongsTo(models.Libro, {as:'libro', foreignKey:'libroId'})
+      this.belongsTo(models.Usuario, {foreignKey:'usuarioId'})
+      this.hasMany(models.Libro, {foreignKey:'libroId'})
 
     }
   }
   Reserva.init({
-    titulo: DataTypes.STRING,
-    autor: DataTypes.STRING,
-    editorial: DataTypes.STRING,
-    categoria: DataTypes.STRING,
-    anio: DataTypes.INTEGER,
-    idioma: DataTypes.STRING
+    fechaInicial: DataTypes.STRING,
+    fechaFinal: DataTypes.STRING,
+    dias: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Reserva',

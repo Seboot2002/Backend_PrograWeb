@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     
     static associate(models) {
       
-      this.belongsTo(models.reserva, {as:'reserva', foreignKey:'reservaId'})
+      this.belongsTo(models.Reserva, {foreignKey:'reservaId'})
 
     }
   }

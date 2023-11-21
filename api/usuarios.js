@@ -1,15 +1,12 @@
 const express = require('express')
 
-const db = require('../db/config/config')
+const db = require('../db/models').sequelize.models;
 
 const ruta = express.Router()
 
-/* API #1 : De usuario hacia peliculas*/
-ruta.get('/:id', async(req,res) => {
+ruta.get('/', async(req,res) => {
 
-    id = req.params.id;
-
-    let usuario = await db.usuario.findByPk(id)
+    let usuario = await db.Usuario.findAll();
 
     if ( usuario ) {
         res.status(200).json(usuario)
@@ -19,12 +16,69 @@ ruta.get('/:id', async(req,res) => {
 
 })
 
-
-/* API #2 : De peliculas hacia actores*/
 ruta.post('/', async(req,res) => {
 
     let user = req.body
-    const usuario = await db.usuario.create(user);
+    const usuario = await db.Usuario.create(user);
+
+    if ( usuario ) {
+        res.status(200).json(usuario)
+    } else {
+        res.status(200).send("error")
+    }
+})
+
+ruta.put('/:id', async(req,res) => {
+
+    const id = req.params.id;
+    let { nombre,
+    apellido,
+    tipoDocumento,
+    dni,
+    rol,
+    email,
+    password } = req.body
+
+    const usuario = await db.Usuario.update(
+        {
+            nombre: nombre,
+            apellido: apellido,
+            tipoDocumento: tipoDocumento,
+            dni: dni,
+            rol: rol,
+            email: email,
+            password: password
+        },
+        {
+            where: {
+                id: id 
+            }
+        }
+    )
+})
+
+ruta.delete('/:id', async(req,res) => {
+
+    const id = req.params.id;
+
+    const usuario = await db.Usuario.destroy({
+        where: {
+            id: id
+        }
+    });
+
+    if ( usuario ) {
+        res.status(200).send("Se eliminó el usuario")
+    } else {
+        res.status(200).send("error")
+    }
+})
+
+ruta.get('/:id', async(req,res) => {
+
+    const id = req.params.id;
+    
+    const usuario = await db.Usuario.findByPk(id)
 
     if ( usuario ) {
         res.status(200).json(usuario)
